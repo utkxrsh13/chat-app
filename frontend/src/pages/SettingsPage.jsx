@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import { THEMES } from "../constants";
 import { useThemeStore } from "../store/useThemeStore";
 import { Send } from "lucide-react";
+import ThemeDebugger from "../components/ThemeDebugger";
 
 const PREVIEW_MESSAGES = [
   { id: 1, content: "Hey! How's it going?", isSent: false },
@@ -9,6 +11,12 @@ const PREVIEW_MESSAGES = [
 
 const SettingsPage = () => {
   const { theme, setTheme } = useThemeStore();
+
+  // Apply the theme to the root element
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    console.log("Applied theme:", theme); // Add this line to verify the applied theme
+  }, [theme]);
 
   return (
     <div className="h-screen container mx-auto px-4 pt-20 max-w-5xl">
@@ -109,6 +117,9 @@ const SettingsPage = () => {
             </div>
           </div>
         </div>
+
+        {/* Add ThemeDebugger component */}
+        <ThemeDebugger />
       </div>
     </div>
   );
